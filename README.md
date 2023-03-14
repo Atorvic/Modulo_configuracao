@@ -1,2 +1,2 @@
-# Modulo_conficuracao
+# Modulo_configuracao
 Modulo de desenvolvimento de sistema
