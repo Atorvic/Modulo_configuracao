@@ -28,19 +28,11 @@ namespace DAL
                 {
                     throw new Exception($"Infelizmente ocorreu uma erro", ex);
                 }
+            finally
+            {
+                cn.Close();
+            }
 
-        }
-        public List<Permissao> BuscarTodos()
-        {
-            throw new NotImplementedException();
-        }
-        public List<Permissao> BuscarPorNomeDescricao(string _descricao)
-        {
-            throw new NotImplementedException();
-        }
-        public List<Permissao> BuscarPorId(int _id)
-        {
-            throw new NotImplementedException();
         }
         public void Alterar(Permissao _permissao)
         {
@@ -59,8 +51,12 @@ namespace DAL
                 {
                     throw new Exception($"Infelizmente ocorreu uma erro", ex);
                 }
+            finally
+            {
+                cn.Close();
+            }
         }
-        public void Excluir(Permissao _id)
+        public void Excluir(Permissao _Id)
         {
             try
             {
@@ -69,7 +65,7 @@ namespace DAL
                                   
                 cmd.CommandType = System.Data.CommandType.Text;
 
-                cmd.Parameters.AddWithValue("@Id", _id);
+                cmd.Parameters.AddWithValue("@Id", _Id);
 
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
@@ -79,6 +75,57 @@ namespace DAL
             {
                 throw new Exception($"Infelizmente ocorreu uma erro", ex);
             }
+            finally
+            {
+                cn.Close();
+            }
+        }
+        public List<Permissao>  BuscarTodos()
+        {
+           List<Permissao> lista = new List<Permissao>();
+            Permissao permissao = new Permissao();
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                cmd.Connection = cn;
+                cmd.CommandText = "select Id, Descricao from Permissao";
+                cmd.CommandType = System.Data.CommandType.Text;
+                cn.Open();
+
+                using(SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    permissao = new Permissao();
+                    permissao.Id = Convert.ToInt32(rd["ID"]);
+                    permissao.Descricao = rd["Descricao"].ToString();
+                }
+                return lista;
+            }
+            catch
+            {
+                throw new Exception("Ocorreu um erro!!");
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+        public List<Permissao> BuscarPorNomeDescricao(string _descricao)
+        {
+           List<Permissao> permissao = new List<Permissao>();
+            Permissao permissao = new Permissao();
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                cmd.Connection = cn;
+                cmd.CommandText = "select from Id, Descricao from Permissao";
+                cmd.Parameters.AddWithValue("@")
+            }
+        }
+        public List<Permissao> BuscarPorId(int _id)
+        {
+           throw new NotImplementedException();
         }
     }
 }

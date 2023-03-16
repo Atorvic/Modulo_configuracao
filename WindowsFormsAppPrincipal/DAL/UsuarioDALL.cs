@@ -83,17 +83,20 @@ namespace DAL
                 throw new Exception($"Infelizmente ocorreu uma erro", ex);
             }
         }
-        public List<Usuario> BuscarTodos(Usuario _usuario)
+        public List<Usuario> BuscarTodos()
         {
             //SqlConnection cn = new SqlConnection(Conexao.StringDeConexao);
+
             List<Usuario> usuarios = new List<Usuario>();
             Usuario usuario;
+
+            
             try
             {
                 SqlCommand cmd = new SqlCommand();
 
                 cmd.Connection = cn;
-                cmd.CommandText = "select nome, NomeUsuario,Email,CPF,Ativo,Senha from Usuario";
+                cmd.CommandText = "select Nome, NomeUsuario,Email,CPF,Ativo,Senha from Usuario";
                 cmd.CommandType = System.Data.CommandType.Text;
                 cn.Open();
 
@@ -125,7 +128,7 @@ namespace DAL
                 cn.Close();
             }
         }
-        public List<Usuario> BuscarPorNomeUsuario(Usuario _nomeUsuario)
+        public List<Usuario> BuscarPorNomeUsuario(string _nomeUsuario)
         {
             List<Usuario> usuarios = new List<Usuario>();
             Usuario usuario = new Usuario();
@@ -168,7 +171,7 @@ namespace DAL
                 cn.Close();
             }
         }
-        public Usuario BuscarPorId(Usuario _id)
+        public Usuario BuscarPorId(int _id)
         {
 
             Usuario usuario = new Usuario();
